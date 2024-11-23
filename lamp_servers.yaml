@@ -3,11 +3,10 @@
   become: true
   become_method: sudo
   tasks:
-    - name: Update package cache
-      command: sudo apt-get update -y
-
-    - name: Upgrade packages
-      command: sudo apt-get upgrade -y
+    - name: Update and upgrade system packages
+      apt:
+        update_cache: yes
+        upgrade: dist
 
     - name: Install packages
       package:
@@ -27,11 +26,6 @@
 
       environment:
         DEBIAN_FRONTEND: noninteractive
-      register: apt_install_result
-
-    - name: Debug apt install result
-      debug:
-        var: apt_install_result.stdout
 
     - name: Check if reboot is required
       stat:
@@ -40,6 +34,7 @@
 
     - name: Reboot the server if needed
       reboot:
+        reboot_timeout: 300
       when: reboot_required.stat.exists
 
     - name: Enable PHP module for apache
