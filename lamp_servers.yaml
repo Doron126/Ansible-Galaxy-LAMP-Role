@@ -5,8 +5,6 @@
   tasks:
     - name: Update package cache
       command: sudo apt-get update -y
-      async: 60
-      poll: 0
 
     - name: Upgrade packages
       command: sudo apt-get upgrade -y
