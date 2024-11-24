@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 LAMP Server Role
 =========
 
