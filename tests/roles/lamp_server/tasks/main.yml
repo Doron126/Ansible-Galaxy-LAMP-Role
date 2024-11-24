@@ -1,0 +1,16 @@
+---
+# tasks file for lamp_server
+- name: Update and upgrade system packages
+  include_tasks: update.yml
+
+- name: Install required packages
+  include_tasks: install.yml
+
+- name: Configure Apache
+  include_tasks: apache.yml
+
+- name: Configure MySQL
+  include_tasks: mysql.yml
+
+- name: Configure PHP
+  include_tasks: php.yml

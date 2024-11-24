@@ -1,0 +1,7 @@
+# tasks/update.yml
+- name: Update and upgrade system packages
+  apt:
+    update_cache: yes
+    upgrade: dist
+  environment:
+    DEBIAN_FRONTEND: "{{ debian_frontend }}" 

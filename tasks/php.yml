@@ -1,0 +1,13 @@
+# tasks/php.yml
+- name: Deploy sample PHP file
+  template:
+    src: info.php.j2
+    dest: /var/www/html/info.php
+    owner: "{{ php_info_file_owner }}"
+    group: "{{ php_info_file_group }}"
+    mode: "{{ php_info_file_mode }}"
+
+- name: Remove sample PHP file after verification
+  file:
+    path: /var/www/html/info.php
+    state: absent

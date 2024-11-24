@@ -1,0 +1,68 @@
+# tasks/mysql.yml
+- name: Stop MySQL service
+  service:
+    name: mysql
+    state: stopped
+
+- name: Ensure MySQL socket directory exists
+  file:
+    path: /var/run/mysqld
+    state: directory
+    owner: mysql
+    group: mysql
+    mode: "{{ mysql_socket_directory_mode }}"
+
+- name: Start MySQL in safe mode
+  shell: |
+    mysqld_safe --skip-grant-tables --socket=/var/run/mysqld/mysqld.sock &
+    sleep 15
+  args:
+    executable: /bin/bash
+
+- name: Reset root password and switch authentication plugin
+  shell: |
+    mysql -u root <<EOF
+    FLUSH PRIVILEGES;
+    ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '{{ mysql_root_password }}';
+    FLUSH PRIVILEGES;
+    EOF
+  args:
+    executable: /bin/bash
+
+- name: Kill safe mode MySQL processes
+  shell: killall mysqld
+  ignore_errors: yes
+
+- name: Start MySQL service normally
+  service:
+    name: mysql
+    state: started
+
+- name: Define user and privileges
+  community.mysql.mysql_user:
+    name: "{{ db_user }}"
+    password: "{{ db_password }}"
+    host: "%"
+    priv: "*.*:CREATE"
+    state: present
+    column_case_sensitive: false
+    login_user: root
+    login_password: "{{ mysql_root_password }}"
+
+- name: Ensure MySQL databases are present
+  community.mysql.mysql_db:
+    name: "{{ item }}"
+    state: present
+    login_user: root
+    login_password: "{{ mysql_root_password }}"
+  loop:
+    - "{{ db_1 }}"
+    - "{{ db_2 }}"
+
+- name: Define privileges on the databases
+  community.mysql.mysql_user:
+    name: "{{ db_user }}"
+    priv: "*.*:USAGE"
+    column_case_sensitive: false
+    login_user: root
+    login_password: "{{ mysql_root_password }}"

@@ -1,0 +1,8 @@
+# tasks/install.yml
+- name: Install required packages
+  package:
+    name: "{{ item }}"
+    state: present
+  loop: "{{ common_packages + php_packages }}"
+  environment:
+    DEBIAN_FRONTEND: "{{ debian_frontend }}"

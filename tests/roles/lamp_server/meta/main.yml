@@ -1,0 +1,36 @@
+galaxy_info:
+  author: Doron Shamo
+  description: IT
+  company: Bynet
+
+  license: MIT
+
+  min_ansible_version: 2.10
+
+  platforms:
+    - name: Ubuntu
+      versions:
+      - jammy
+      - lunar
+      - mantic
+      - noble
+
+  categories:
+    - web
+    - database
+    - php
+    - apache
+    - mysql
+    - system
+
+  galaxy_tags:
+    - lamp
+    - php
+    - apache
+    - mysql
+    - ubuntu
+    - web
+    - database
+    - server
+
+dependencies: []

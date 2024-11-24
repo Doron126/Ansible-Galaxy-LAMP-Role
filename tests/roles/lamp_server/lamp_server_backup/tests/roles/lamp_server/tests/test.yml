@@ -1,0 +1,12 @@
+---
+- hosts: localhost
+  remote_user: root
+  roles:
+    - lamp_server
+  vars:
+    mysql_root_password: test_password
+    db_user: test_user
+    db_password: test_password
+    db_1: test_db1
+    db_2: test_db2
+    php_version: 8.3
