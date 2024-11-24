@@ -7,6 +7,9 @@
       apt:
         update_cache: yes
         upgrade: dist
+      environment:
+        DEBIAN_FRONTEND: noninteractive
+        
 
     - name: Install packages
       package:
