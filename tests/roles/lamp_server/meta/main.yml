@@ -15,14 +15,6 @@ galaxy_info:
       - mantic
       - noble
 
-  categories:
-    - web
-    - database
-    - php
-    - apache
-    - mysql
-    - system
-
   galaxy_tags:
     - lamp
     - php
