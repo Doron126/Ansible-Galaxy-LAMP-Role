@@ -24,7 +24,9 @@ php_version: 8.3
 
 # Apache configuration
 apache_service: apache2
+
 php_fpm_service: "php{{ php_version }}-fpm"
+
 php_packages:
   - "php{{ php_version }}"
   - "php{{ php_version }}-fpm"
