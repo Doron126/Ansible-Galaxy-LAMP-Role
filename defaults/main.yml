@@ -2,7 +2,7 @@
 # Default variables for the LAMP stack role
 
 # Set credentials in protected inventory variables or Ansible Vault.
-# Empty values make missing configuration fail before MySQL changes are made.
+# Empty values make this role fail before it configures MySQL.
 mysql_root_password: ""
 db_user: ""
 db_password: ""
