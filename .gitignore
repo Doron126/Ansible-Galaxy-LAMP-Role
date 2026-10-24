@@ -1,0 +1,15 @@
+# Ansible runtime artifacts
+*.retry
+.fact_cache/
+.ansible/
+
+# Python and local environments
+__pycache__/
+*.py[cod]
+.venv/
+
+# Local editor and OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

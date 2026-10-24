@@ -1,20 +1,15 @@
+---
 galaxy_info:
   author: Doron Shamo
-  description: IT
+  description: Configure an Apache, MySQL, and PHP (LAMP) stack on Ubuntu
   company: Bynet
-
   license: MIT
-
-  min_ansible_version: 2.10
-
+  min_ansible_version: "2.10"
   platforms:
     - name: Ubuntu
       versions:
-      - jammy
-      - lunar
-      - mantic
-      - noble
-
+        - jammy
+        - noble
   galaxy_tags:
     - lamp
     - php
