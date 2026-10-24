@@ -1,11 +1,11 @@
 ---
-# defaults file for lamp_server
 # Default variables for the LAMP stack role
 
-# MySQL configuration
-mysql_root_password: root_password_default
-db_user: default_user
-db_password: default_password
+# Set credentials in protected inventory variables or Ansible Vault.
+# Empty values make this role fail before it configures MySQL.
+mysql_root_password: ""
+db_user: ""
+db_password: ""
 db_1: database1
 db_2: database2
 
