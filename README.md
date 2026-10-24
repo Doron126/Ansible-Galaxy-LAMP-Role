@@ -67,10 +67,10 @@ ansible-playbook -i inventory.ini site.yml --ask-vault-pass
 
 | Variable | Default | Purpose |
 | --- | --- | --- |
-| `mysql_root_password` | `root_password_default` | MySQL root password |
-| `db_user` | `default_user` | Application database user |
-| `db_password` | `default_password` | Application database password |
-| `db_1` / `db_2` | `database1` / `database2` | Databases to create |
+| `mysql_root_password` | Required; no default | MySQL root password. Store it in Ansible Vault. |
+| `db_user` | Required; no default | Application database account, limited to local connections and the two configured databases. |
+| `db_password` | Required; no default | Application database password. Store it in Ansible Vault. |
+| `db_1` / `db_2` | `database1` / `database2` | Databases to create and grant to the application account. |
 | `php_version` | `8.3` | PHP package and module version |
 | `apache_service` | `apache2` | Apache service name |
 
@@ -79,10 +79,10 @@ Additional package, service, and file-permission settings are available in [`def
 ## Operational considerations
 
 - The role runs a **distribution package upgrade** (`apt upgrade: dist`), which can change software beyond the LAMP stack.
-- MySQL setup **stops the service and uses `mysqld_safe --skip-grant-tables`** to reset root credentials, then selects the `mysql_native_password` authentication plugin. This is disruptive, security-sensitive, and may be incompatible with some MySQL versions.
-- The database user is initially created with the host pattern `%`. Review its access and privileges for your environment.
-- The included [local test playbook](tests/test.yml) targets `localhost` with privilege escalation. Run it only in a disposable Ubuntu test environment, not on a workstation or production host.
-- Replace all placeholder credentials before use and keep secrets out of version control.
+- MySQL remains managed by its normal Ubuntu service. The role configures it through the local Unix socket with `community.mysql` modules; it does not disable grant checks or stop the server.
+- Supply all three MySQL credentials explicitly. The application account is restricted to `localhost` and the two configured databases.
+- The included [local test playbook](tests/test.yml) targets `localhost` with privilege escalation and changes the host. Use it only in a disposable Ubuntu test environment. The focused Python tests can be run safely with `python3 -m unittest discover -s tests`.
+- Keep passwords out of version control.
 
 ## License
 
